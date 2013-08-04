@@ -10,8 +10,12 @@ class Board:
                       [0,0,0]]
 
     def _move(self, x, y, num):
-        if (num > 1 or num < -1 or num == 0):
-            raise ValueError('num can only be 1 or -1.')
+        if num > 1 or num < -1 or num == 0:
+            raise ValueError(str.format('num can only be 1 or -1. Got: {0}', num))
+
+        if x > 2 or y > 2 or x < 0 or y < 0:
+            raise IndexError(
+                str.format('The x and y coordinates can be from (0, 0) to (2,2). Got: ({0},{1})', x, y))
 
         self.board[y][x] = num
 

@@ -18,9 +18,9 @@ def omove(x, y):
 def display():
     print str.format(
             '{0} | {1} | {2}',
-            getSymbol(board[0][0]),
-            getSymbol(board[0][1]),
-            getSymbol(board[0][2]))
+            getSymbol(board[2][0]),
+            getSymbol(board[2][1]),
+            getSymbol(board[2][2]))
     print '---------'
     print str.format(
             '{0} | {1} | {2}',
@@ -30,9 +30,9 @@ def display():
     print '---------'
     print str.format(
             '{0} | {1} | {2}',
-            getSymbol(board[2][0]),
-            getSymbol(board[2][1]),
-            getSymbol(board[2][2]))
+            getSymbol(board[0][0]),
+            getSymbol(board[0][1]),
+            getSymbol(board[0][2]))
     print ''
 
 def getSymbol(num):

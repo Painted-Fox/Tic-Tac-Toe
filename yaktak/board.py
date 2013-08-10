@@ -1,7 +1,16 @@
 from yaktak.exceptions import GameOverError, SpaceTakenError, WrongTurnError
 
 class Board:
-    """Our tic-tac-toe game board."""
+    """Our tic-tac-toe game board.
+
+    Coordinate map:
+
+    (2,0) # (2,1) # (2,2)
+    #####################
+    (1,0) # (1,1) # (1,2)
+    #####################
+    (0,0) # (0,1) # (0,2)
+    """
 
     def __init__(self):
         # 0 = the space is not filled.
@@ -29,7 +38,7 @@ class Board:
         self.grid[y][x] = num
 
     def empty(self, x, y):
-        return self.grid[y][x] == 0
+        return self.get(x,y) == 0
 
     def get(self, x, y):
         return self.grid[y][x]
@@ -60,7 +69,7 @@ class Board:
         moves = 0
         for i in range(0, 3):
             for j in range (0, 3):
-                if self.grid[i][j] != 0:
+                if self.get(i,j) != 0:
                     moves = moves + 1
 
         if moves % 2 == 0:
@@ -76,8 +85,8 @@ class Board:
             rowsum = 0
             colsum = 0
             for j in range(0, 3):
-                rowsum += self.grid[i][j]
-                colsum += self.grid[j][i]
+                rowsum += self.get(i,j)
+                colsum += self.get(j,i)
 
             if rowsum == 3 or colsum == 3:
                 return 1
@@ -85,8 +94,8 @@ class Board:
                 return -1
 
         # Check for diagonal cases
-        diagsum1 = self.grid[0][0] + self.grid[1][1] + self.grid[2][2]
-        diagsum2 = self.grid[0][2] + self.grid[1][1] + self.grid[2][0]
+        diagsum1 = self.get(0,0) + self.get(1,1) + self.get(2,2)
+        diagsum2 = self.get(0,2) + self.get(1,1) + self.get(2,0)
 
         if diagsum1 == 3 or diagsum2 == 3:
             return 1
@@ -105,13 +114,12 @@ class Board:
 ---------
 {0} | {1} | {2}
 """,
-            self.getSymbol(self.grid[0][0]),
-            self.getSymbol(self.grid[0][1]),
-            self.getSymbol(self.grid[0][2]),
-            self.getSymbol(self.grid[1][0]),
-            self.getSymbol(self.grid[1][1]),
-            self.getSymbol(self.grid[1][2]),
-            self.getSymbol(self.grid[2][0]),
-            self.getSymbol(self.grid[2][1]),
-            self.getSymbol(self.grid[2][2]))
-
+            self.getSymbol(self.get(0,0)),
+            self.getSymbol(self.get(0,1)),
+            self.getSymbol(self.get(0,2)),
+            self.getSymbol(self.get(1,0)),
+            self.getSymbol(self.get(1,1)),
+            self.getSymbol(self.get(1,2)),
+            self.getSymbol(self.get(2,0)),
+            self.getSymbol(self.get(2,1)),
+            self.getSymbol(self.get(2,2)))

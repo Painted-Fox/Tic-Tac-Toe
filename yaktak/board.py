@@ -81,7 +81,7 @@ class Board:
 
         if diagsum1 == 3 or diagsum2 == 3:
             return 1
-        elif diagsum2 == -3 or diagsum2 == -3:
+        elif diagsum1 == -3 or diagsum2 == -3:
             return -1
 
         # No winner

@@ -28,7 +28,7 @@ class Board:
         self._move(x, y, 1)
 
     def omove(self,x, y):
-        if self.turn() != 1:
+        if self.turn() != -1:
             raise WrongTurnError("It is not O's turn to move.")
 
         self._move(x, y, -1)
@@ -44,26 +44,16 @@ class Board:
     def turn(self):
         """Who's turn is it?  Returns 1, or -1."""
 
-        xmoves = 0
-        omoves = 0
-
+        moves = 0
         for i in range(0, 3):
             for j in range (0, 3):
-                if self._board[i][j] == 1:
-                    xmoves += 1
-                elif self._board[i][j] == -1:
-                    omoves += 1
+                if self._board[i][j] != 0:
+                    moves = moves + 1
 
-        if xmoves and omoves == 0:
-            # Start condition.  x goes first.
+        if moves % 2 == 0:
             return 1
-        elif xmoves > omoves:
-            # x just went, now it's o's turn.
+        else:
             return -1
-        elif xmoves == omoves:
-            # o just went, now it's x's turn.
-            return 1
-
 
     def winner(self):
         """Do we have a winner?  Returns 0, 1, or -1."""

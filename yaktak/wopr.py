@@ -54,6 +54,30 @@ def _take_opposite_corner(board):
     else:
         return None
 
+def _take_double_threat(board):
+    """
+    Make a move that creates a double threat to the player.  We're guranteed to
+    win next turn if we can make this move.
+    Returns None if unavailable.
+    """
+
+    # Who's turn am I playing for?
+    myturn = board.turn()
+
+    if board.get(0,0) == myturn and board.get(2,2) == myturn:
+        if board.empty(0,1) and board.empty(0,2) and board.empty(1,2):
+            return (0,2)
+        elif board.empty(1,0) and board.empty(2,0) and board.empty(2,1):
+            return (2,0)
+
+    elif board.get(0,2) == myturn and board.get(2,0) == myturn:
+        if board.empty(0,1) and board.empty(0,0) and board.empty(1,0):
+            return (0,0)
+        elif board.empty(2,1) and board.empty(2,2) and board.empty(1,2):
+            return (2,2)
+
+    return None
+
 def _take_center(board):
     """
     A defensive strategy is to take the center.

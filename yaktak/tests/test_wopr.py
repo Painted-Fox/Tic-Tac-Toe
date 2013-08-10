@@ -102,3 +102,41 @@ class TestWopr(TestCase):
         move = wopr._take_opposite_corner(board)
         self.assertIsNone(move)
 
+    def test_take_double_threat(self):
+        """See if WOPR can make a double threat move."""
+
+        board = Board()
+        move = wopr._take_double_threat(board)
+        self.assertIsNone(move)
+
+        board = Board()
+        board.xmove(0,0)
+        board.omove(1,0)
+        board.xmove(2,2)
+        board.omove(2,1)
+        move = wopr._take_double_threat(board)
+        self.assertEqual(move, (0,2))
+
+        board = Board()
+        board.xmove(0,0)
+        board.omove(0,1)
+        board.xmove(2,2)
+        board.omove(1,2)
+        move = wopr._take_double_threat(board)
+        self.assertEqual(move, (2,0))
+
+        board = Board()
+        board.xmove(0,2)
+        board.omove(2,1)
+        board.xmove(2,0)
+        board.omove(1,2)
+        move = wopr._take_double_threat(board)
+        self.assertEqual(move, (0,0))
+
+        board = Board()
+        board.xmove(0,2)
+        board.omove(0,1)
+        board.xmove(2,0)
+        board.omove(1,0)
+        move = wopr._take_double_threat(board)
+        self.assertEqual(move, (2,2))

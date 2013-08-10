@@ -7,7 +7,7 @@ class Board:
         # 0 = the space is not filled.
         # 1 = x
         # -1 = o
-        self._board = [[0,0,0],
+        self.grid = [[0,0,0],
                       [0,0,0],
                       [0,0,0]]
 
@@ -19,14 +19,17 @@ class Board:
             raise IndexError(
                 str.format("The x and y coordinates can be from (0, 0) to (2,2). Got: ({0},{1})", x, y))
 
-        if self._board[y][x] != 0:
+        if not self.empty(x, y):
             raise SpaceTakenError(
                     str.format("The space ({0}, {1}) is already taken", x, y))
 
         if self.winner() != 0:
             raise GameOverError("The game is over.  You cannot move.")
 
-        self._board[y][x] = num
+        self.grid[y][x] = num
+
+    def empty(self, x, y):
+        return self.grid[y][x] == 0
 
     def xmove(self, x, y):
         if self.turn() != 1:
@@ -34,7 +37,7 @@ class Board:
 
         self._move(x, y, 1)
 
-    def omove(self,x, y):
+    def omove(self, x, y):
         if self.turn() != -1:
             raise WrongTurnError("It is not O's turn to move.")
 
@@ -54,7 +57,7 @@ class Board:
         moves = 0
         for i in range(0, 3):
             for j in range (0, 3):
-                if self._board[i][j] != 0:
+                if self.grid[i][j] != 0:
                     moves = moves + 1
 
         if moves % 2 == 0:
@@ -70,8 +73,8 @@ class Board:
             rowsum = 0
             colsum = 0
             for j in range(0, 3):
-                rowsum += self._board[i][j]
-                colsum += self._board[j][i]
+                rowsum += self.grid[i][j]
+                colsum += self.grid[j][i]
 
             if rowsum == 3 or colsum == 3:
                 return 1
@@ -79,8 +82,8 @@ class Board:
                 return -1
 
         # Check for diagonal cases
-        diagsum1 = self._board[0][0] + self._board[1][1] + self._board[2][2]
-        diagsum2 = self._board[0][2] + self._board[1][1] + self._board[2][0]
+        diagsum1 = self.grid[0][0] + self.grid[1][1] + self.grid[2][2]
+        diagsum2 = self.grid[0][2] + self.grid[1][1] + self.grid[2][0]
 
         if diagsum1 == 3 or diagsum2 == 3:
             return 1
@@ -99,13 +102,13 @@ class Board:
 ---------
 {0} | {1} | {2}
 """,
-            self.getSymbol(self._board[0][0]),
-            self.getSymbol(self._board[0][1]),
-            self.getSymbol(self._board[0][2]),
-            self.getSymbol(self._board[1][0]),
-            self.getSymbol(self._board[1][1]),
-            self.getSymbol(self._board[1][2]),
-            self.getSymbol(self._board[2][0]),
-            self.getSymbol(self._board[2][1]),
-            self.getSymbol(self._board[2][2]))
+            self.getSymbol(self.grid[0][0]),
+            self.getSymbol(self.grid[0][1]),
+            self.getSymbol(self.grid[0][2]),
+            self.getSymbol(self.grid[1][0]),
+            self.getSymbol(self.grid[1][1]),
+            self.getSymbol(self.grid[1][2]),
+            self.getSymbol(self.grid[2][0]),
+            self.getSymbol(self.grid[2][1]),
+            self.getSymbol(self.grid[2][2]))
 

@@ -32,6 +32,28 @@ def _take_free_corner(board):
     else:
         return corners[random.randint(0, len(corners) - 1)]
 
+def _take_opposite_corner(board):
+    """
+    The second move of the aggressive strategy is to take the opposite corner of
+    the one you already took.
+    Returns None if unavailable.
+    """
+
+    # Who's turn am I playing for?
+    myturn = board.turn()
+
+    # Check what corner we already have and return the opposite corner.
+    if board.get(0,0) == myturn and board.empty(2,2):
+        return (2,2)
+    elif board.get(2,2) == myturn and board.empty(0,0):
+        return (0,0)
+    elif board.get(2,0) == myturn and board.empty(0,2):
+        return (0,2)
+    elif board.get(0,2) == myturn and board.empty(2,0):
+        return (2,0)
+    else:
+        return None
+
 def _take_center(board):
     """
     A defensive strategy is to take the center.

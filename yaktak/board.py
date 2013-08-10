@@ -31,6 +31,9 @@ class Board:
     def empty(self, x, y):
         return self.grid[y][x] == 0
 
+    def get(self, x, y):
+        return self.grid[y][x]
+
     def xmove(self, x, y):
         if self.turn() != 1:
             raise WrongTurnError("It is not X's turn to move.")

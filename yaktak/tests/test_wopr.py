@@ -46,3 +46,59 @@ class TestWopr(TestCase):
         board = Board()
         board.xmove(1,1)
         self.assertIsNone(wopr._take_center(board))
+
+    def test_take_opposite_corner(self):
+        """See if WOPR can take a corner opposite to the one already taken."""
+
+        board = Board()
+        move = wopr._take_opposite_corner(board)
+        self.assertIsNone(move)
+
+        board = Board()
+        board.xmove(0,0)
+        board.omove(1,1)
+        move = wopr._take_opposite_corner(board)
+        self.assertEqual(move, (2,2))
+
+        board = Board()
+        board.xmove(2,2)
+        board.omove(1,1)
+        move = wopr._take_opposite_corner(board)
+        self.assertEqual(move, (0,0))
+
+        board = Board()
+        board.xmove(0,2)
+        board.omove(1,1)
+        move = wopr._take_opposite_corner(board)
+        self.assertEqual(move, (2,0))
+
+        board = Board()
+        board.xmove(2,0)
+        board.omove(1,1)
+        move = wopr._take_opposite_corner(board)
+        self.assertEqual(move, (0,2))
+
+        board = Board()
+        board.xmove(0,0)
+        board.omove(2,2)
+        move = wopr._take_opposite_corner(board)
+        self.assertIsNone(move)
+
+        board = Board()
+        board.xmove(2,2)
+        board.omove(0,0)
+        move = wopr._take_opposite_corner(board)
+        self.assertIsNone(move)
+
+        board = Board()
+        board.xmove(0,2)
+        board.omove(2,0)
+        move = wopr._take_opposite_corner(board)
+        self.assertIsNone(move)
+
+        board = Board()
+        board.xmove(2,0)
+        board.omove(0,2)
+        move = wopr._take_opposite_corner(board)
+        self.assertIsNone(move)
+

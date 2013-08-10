@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from yaktak.board import Board
-from yaktak.exceptions import SpaceTakenError, WrongTurnError
+from yaktak.exceptions import GameOverError, SpaceTakenError, WrongTurnError
 
 class TestBoard(TestCase):
     def test_move(self):
@@ -207,3 +207,16 @@ class TestBoard(TestCase):
         self.assertEqual(board.winner(), 0)
         board.omove(2,0)
         self.assertEqual(board.winner(), -1)
+
+    def test_move_after_win(self):
+        """Check an error is raised when we try to play a game that's over."""
+
+        board = Board()
+        board.xmove(0,0)
+        board.omove(1,0)
+        board.xmove(0,1)
+        board.omove(1,1)
+        board.xmove(0,2)
+
+        with self.assertRaises(GameOverError):
+            board.omove(1,2)

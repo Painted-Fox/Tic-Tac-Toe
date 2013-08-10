@@ -1,4 +1,4 @@
-from yaktak.exceptions import SpaceTakenError, WrongTurnError
+from yaktak.exceptions import GameOverError, SpaceTakenError, WrongTurnError
 
 class Board:
     """Our tic-tac-toe game board."""
@@ -22,6 +22,9 @@ class Board:
         if self._board[y][x] != 0:
             raise SpaceTakenError(
                     str.format("The space ({0}, {1}) is already taken", x, y))
+
+        if self.winner() != 0:
+            raise GameOverError("The game is over.  You cannot move.")
 
         self._board[y][x] = num
 

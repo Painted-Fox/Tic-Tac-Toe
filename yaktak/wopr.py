@@ -1,7 +1,7 @@
 """Provides the artificial intelligence for the computer player."""
 
 import random
-from yaktak.Board import Board
+from yaktak.board import Board
 
 def move(board):
     if isinstance(board, Board) == false:

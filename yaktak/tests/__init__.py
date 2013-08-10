@@ -3,6 +3,7 @@ import unittest
 def test_suite():
     result = unittest.TestSuite()
     names = [
+        'wopr',
         'board',
         ]
     module_names = ['yaktak.tests.test_' + name for name in names]

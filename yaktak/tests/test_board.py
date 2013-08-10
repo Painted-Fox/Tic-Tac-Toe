@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from yaktak.board import Board
+from yaktak.exceptions import SpaceTakenError, WrongTurnError
 
 class TestBoard(TestCase):
     def test_move(self):
@@ -59,3 +60,13 @@ class TestBoard(TestCase):
             board.xmove(3, 0)
         with self.assertRaises(IndexError):
             board.xmove(0, 3)
+
+    def test_move_to_taken_space(self):
+        """Make sure we can't move into a space that's already taken."""
+
+        board = Board()
+        board.xmove(0,0)
+        board.omove(1,1)
+
+        with self.assertRaises(SpaceTakenError):
+            board.xmove(0,0)

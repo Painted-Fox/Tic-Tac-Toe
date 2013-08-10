@@ -1,4 +1,4 @@
-from .exceptions import WrongTurnError
+from yaktak.exceptions import SpaceTakenError, WrongTurnError
 
 class Board:
     """Our tic-tac-toe game board."""
@@ -18,6 +18,10 @@ class Board:
         if x > 2 or y > 2 or x < 0 or y < 0:
             raise IndexError(
                 str.format("The x and y coordinates can be from (0, 0) to (2,2). Got: ({0},{1})", x, y))
+
+        if self._board[y][x] != 0:
+            raise SpaceTakenError(
+                    str.format("The space ({0}, {1}) is already taken", x, y))
 
         self._board[y][x] = num
 

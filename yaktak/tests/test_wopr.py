@@ -36,3 +36,13 @@ class TestWopr(TestCase):
         board.omove(2,2)
         move = wopr._take_free_corner(board)
         self.assertIsNone(move)
+
+    def test_take_center(self):
+        """Test if the WOPR can take the center."""
+
+        board = Board()
+        self.assertEqual(wopr._take_center(board), (1,1))
+
+        board = Board()
+        board.xmove(1,1)
+        self.assertIsNone(wopr._take_center(board))

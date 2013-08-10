@@ -70,3 +70,15 @@ class TestBoard(TestCase):
 
         with self.assertRaises(SpaceTakenError):
             board.xmove(0,0)
+
+    def test_wrong_turn(self):
+        """Make sure we can't move on the wrong turn."""
+
+        board = Board()
+        with self.assertRaises(WrongTurnError):
+            board.omove(0,0)
+
+        board.xmove(0,0)
+        with self.assertRaises(WrongTurnError):
+            board.xmove(1,1)
+

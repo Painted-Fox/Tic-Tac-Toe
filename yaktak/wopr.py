@@ -1,6 +1,7 @@
 """Provides the artificial intelligence for the computer player."""
 
 import random
+from copy import deepcopy
 from yaktak.board import Board
 
 def move(board):
@@ -94,7 +95,22 @@ def _take_win(board):
     Take the winning move.
     Returns None if unavailable.
     """
-    pass
+
+    # Who's turn am I playing for?
+    myturn = board.turn()
+
+    for i in range(0, 3):
+        for j in range(0, 3):
+            if board.empty(i, j):
+                # Copy the board and see if we can make a winning move here.
+                # This might not be the most efficient solution, but it's
+                # straightforward.
+                simulation = Board(grid=deepcopy(board.grid))
+                simulation.move(i, j, myturn)
+                if simulation.winner() == myturn:
+                    return (i,j)
+
+    return None
 
 def _take_defense(board):
     """

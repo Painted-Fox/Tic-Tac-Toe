@@ -140,3 +140,85 @@ class TestWopr(TestCase):
         board.omove(1,0)
         move = wopr._take_double_threat(board)
         self.assertEqual(move, (2,2))
+
+    def test_take_win(self):
+        """See if the WOPR will take a winning move if one is available."""
+        board = Board()
+        move = wopr._take_win(board)
+        self.assertIsNone(move)
+
+        # Vertical Win for X
+        board = Board()
+        board.xmove(0,0)
+        board.omove(1,1)
+        board.xmove(0,1)
+        board.omove(1,2)
+        move = wopr._take_win(board)
+        self.assertEqual(move, (0,2))
+
+        # Vertial Win for O
+        board = Board()
+        board.xmove(1,1)
+        board.omove(0,0)
+        board.xmove(1,2)
+        board.omove(0,1)
+        board.xmove(2,2)
+        move = wopr._take_win(board)
+        self.assertEqual(move, (0,2))
+
+        # Horizontal Win for X
+        board = Board()
+        board.xmove(0,0)
+        board.omove(1,1)
+        board.xmove(1,0)
+        board.omove(2,2)
+        move = wopr._take_win(board)
+        self.assertEqual(move, (2,0))
+
+        # Horizontal Win for O
+        board = Board()
+        board.xmove(1,1)
+        board.omove(0,0)
+        board.xmove(1,2)
+        board.omove(1,0)
+        board.xmove(2,2)
+        move = wopr._take_win(board)
+        self.assertEqual(move, (2,0))
+
+        # Diagonal 1 for X
+        board = Board()
+        board.xmove(0,0)
+        board.omove(0,1)
+        board.xmove(1,1)
+        board.omove(1,0)
+        move = wopr._take_win(board)
+        self.assertEqual(move, (2,2))
+
+        # Diagonal 1 for O
+        board = Board()
+        board.xmove(1,0)
+        board.omove(0,0)
+        board.xmove(0,1)
+        board.omove(1,1)
+        board.xmove(2,1)
+        move = wopr._take_win(board)
+        self.assertEqual(move, (2,2))
+
+        # Diagonal 2 for X
+        board = Board()
+        board.xmove(2,0)
+        board.omove(0,0)
+        board.xmove(1,1)
+        board.omove(1,0)
+        move = wopr._take_win(board)
+        self.assertEqual(move, (0,2))
+
+        # Diagonal 2 for O
+        board = Board()
+        board.xmove(0,1)
+        board.omove(2,0)
+        board.xmove(1,0)
+        board.omove(1,1)
+        board.xmove(0,0)
+        move = wopr._take_win(board)
+        self.assertEqual(move, (0,2))

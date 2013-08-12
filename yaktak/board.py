@@ -12,15 +12,22 @@ class Board:
     (0,0) # (0,1) # (0,2)
     """
 
-    def __init__(self):
+    def __init__(self, grid = None):
+
+        if grid is not None and (
+            len(grid) != 3 or
+            len(grid[0]) != 3 or
+            len(grid[1]) != 3 or
+            len(grid[2]) != 3):
+
+            raise IndexError("The board must have a 3x3 grid.")
+
         # 0 = the space is not filled.
         # 1 = x
         # -1 = o
-        self.grid = [[0,0,0],
-                      [0,0,0],
-                      [0,0,0]]
+        self.grid = grid or [[0,0,0],[0,0,0],[0,0,0]]
 
-    def _move(self, x, y, num):
+    def move(self, x, y, num):
         if num > 1 or num < -1 or num == 0:
             raise ValueError(str.format("num can only be 1 or -1. Got: {0}", num))
 
@@ -35,6 +42,9 @@ class Board:
         if self.winner() != 0:
             raise GameOverError("The game is over.  You cannot move.")
 
+        if self.turn() != num:
+            raise WrongTurnError("It is not your turn to move.")
+
         self.grid[y][x] = num
 
     def empty(self, x, y):
@@ -44,16 +54,10 @@ class Board:
         return self.grid[y][x]
 
     def xmove(self, x, y):
-        if self.turn() != 1:
-            raise WrongTurnError("It is not X's turn to move.")
-
-        self._move(x, y, 1)
+        self.move(x, y, 1)
 
     def omove(self, x, y):
-        if self.turn() != -1:
-            raise WrongTurnError("It is not O's turn to move.")
-
-        self._move(x, y, -1)
+        self.move(x, y, -1)
 
     def getSymbol(self, num):
         symbol = ' '

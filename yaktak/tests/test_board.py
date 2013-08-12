@@ -41,11 +41,11 @@ class TestBoard(TestCase):
         board = Board()
 
         with self.assertRaises(ValueError):
-            board._move(0, 0, 0)
+            board.move(0, 0, 0)
         with self.assertRaises(ValueError):
-            board._move(0, 0, 2)
+            board.move(0, 0, 2)
         with self.assertRaises(ValueError):
-            board._move(0, 0, -2)
+            board.move(0, 0, -2)
 
     def test_move_offgrid(self):
         """Make sure we can't make a move that's off the board."""

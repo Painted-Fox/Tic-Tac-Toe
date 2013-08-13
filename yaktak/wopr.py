@@ -70,7 +70,7 @@ def _take_opposite_corner(board):
 
 def _take_double_threat(board):
     """
-    Make a move that creates a double threat to the player.  We're guranteed to
+    Make a move that creates a double threat to the player.  We're guaranteed to
     win next turn if we can make this move.
     Returns None if unavailable.
     """

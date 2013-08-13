@@ -232,7 +232,7 @@ class TestWopr(TestCase):
         move = wopr._take_win(board)
         self.assertEqual(move, (2,2))
 
-    def test_take_win_x_diag1(self):
+    def test_take_win_x_diag2(self):
         """X can win diagonally for second pattern."""
         board = Board()
         board.xmove(2,0)
@@ -242,7 +242,7 @@ class TestWopr(TestCase):
         move = wopr._take_win(board)
         self.assertEqual(move, (0,2))
 
-    def test_take_win_o_diag1(self):
+    def test_take_win_o_diag2(self):
         """O can win diagonally for second pattern."""
         board = Board()
         board.xmove(0,1)
@@ -252,3 +252,86 @@ class TestWopr(TestCase):
         board.xmove(0,0)
         move = wopr._take_win(board)
         self.assertEqual(move, (0,2))
+
+    def test_take_defense_unavailable(self):
+        """Make sure we return None if there is no defensive move needed."""
+        board = Board()
+        move = wopr._take_defense(board)
+        self.assertIsNone(move)
+
+    def test_take_defense_x_horiz(self):
+        """X needs to defend horizontally."""
+        board = Board()
+        board.xmove(1,1)
+        board.omove(0,0)
+        board.xmove(2,2)
+        board.omove(0,1)
+        move = wopr._take_defense(board)
+        self.assertEqual(move, (0,2))
+
+    def test_take_defense_o_horiz(self):
+        """O needs to defend horizontally."""
+        board = Board()
+        board.xmove(0,0)
+        board.omove(1,1)
+        board.xmove(0,1)
+        move = wopr._take_defense(board)
+        self.assertEqual(move, (0,2))
+
+    def test_take_defense_x_vert(self):
+        """X needs to defend vertically."""
+        board = Board()
+        board.xmove(1,1)
+        board.omove(0,0)
+        board.xmove(2,2)
+        board.omove(1,0)
+        move = wopr._take_defense(board)
+        self.assertEqual(move, (2,0))
+
+    def test_take_defense_o_vert(self):
+        """O needs to defend vertically."""
+        board = Board()
+        board.xmove(0,0)
+        board.omove(1,1)
+        board.xmove(1,0)
+        move = wopr._take_defense(board)
+        self.assertEqual(move, (2,0))
+
+    def test_take_defense_x_diag1(self):
+        """X needs to defend diagonally for first pattern."""
+        board = Board()
+        board.xmove(1,0)
+        board.omove(0,0)
+        board.xmove(0,1)
+        board.omove(1,1)
+        move = wopr._take_defense(board)
+        self.assertEqual(move, (2,2))
+
+    def test_take_defend_o_diag1(self):
+        """O needs to defend diagonally for first pattern."""
+        board = Board()
+        board.xmove(0,0)
+        board.omove(1,0)
+        board.xmove(1,1)
+        move = wopr._take_defense(board)
+        self.assertEqual(move, (2,2))
+
+    def test_take_defend_x_diag2(self):
+        """X needs to defend diagonally for second pattern."""
+        board = Board()
+        board.xmove(0,1)
+        board.omove(2,0)
+        board.xmove(1,0)
+        board.omove(1,1)
+        move = wopr._take_defense(board)
+        self.assertEqual(move, (0,2))
+
+    def test_take_defend_o_diag2(self):
+        """O needs to defend diagonally for second pattern."""
+        board = Board()
+        board.xmove(2,0)
+        board.omove(0,1)
+        board.xmove(1,1)
+        move = wopr._take_defense(board)
+        self.assertEqual(move, (0,2))
+

@@ -45,13 +45,13 @@ class Board:
         if self.turn() != num:
             raise WrongTurnError("It is not your turn to move.")
 
-        self.grid[y][x] = num
+        self.grid[x][y] = num
 
     def empty(self, x, y):
         return self.get(x,y) == 0
 
     def get(self, x, y):
-        return self.grid[y][x]
+        return self.grid[x][y]
 
     def xmove(self, x, y):
         self.move(x, y, 1)

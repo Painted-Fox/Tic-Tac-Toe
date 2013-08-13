@@ -17,8 +17,8 @@ class TestBoard(TestCase):
         board = Board()
         board.xmove(2,1)
         board.omove(0,1)
-        self.assertEqual(board.grid[1][2], 1, "X in the wrong position.")
-        self.assertEqual(board.grid[1][0], -1, "O in the wrong position.")
+        self.assertEqual(board.grid[2][1], 1, "X in the wrong position.")
+        self.assertEqual(board.grid[0][1], -1, "O in the wrong position.")
 
     def test_whos_turn(self):
         """Check who's turn is it."""

@@ -8,6 +8,19 @@ def move(board):
     if isinstance(board, Board) == false:
         raise TypeError("The board provided is not a recognized type.")
 
+    move = (_take_win(board) or
+            _take_defense(board) or
+            _take_double_threat(board) or
+            _take_opposite_corner(board) or
+            _take_free_corner(board) or
+            _take_center(board) or
+            _take_any(board))
+
+    if board.turn() == 1:
+        xmove(*move)
+    else:
+        omove(*move)
+
 def _take_free_corner(board):
     """
     An aggressive strategy is to take a corner.  Choose a random corner for fun.
@@ -117,4 +130,27 @@ def _take_defense(board):
     Prevent the opponent from winning.
     Returns None if unnecessary.
     """
-    pass
+
+    # Who's turn am I playing for?
+    myturn = board.turn()
+    opponent = -(myturn)
+
+    for i in range(0,3):
+        for j in range(0,3):
+            if board.empty(i,j):
+                # Copy the board and see if we can make a winning move here.
+                # This might not be the most efficient solution, but it's
+                # straightforward.
+                simulation = Board(grid=deepcopy(board.grid))
+
+                # Cheat so we can see if we can find a position where the
+                # opponent wins without taking our own turn.  This avoids
+                # an extra layer of loops.
+                simulation.grid[i][j] = opponent
+
+                # If the opponent can win here, move to this location so
+                # that we prevent our opponent from winning.
+                if simulation.winner() == opponent:
+                    return (i,j)
+
+    return None

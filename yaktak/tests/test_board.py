@@ -37,7 +37,6 @@ class TestBoard(TestCase):
 
     def test_bogus_move(self):
         """Make sure we raise an exception if we make a bogus move."""
-
         board = Board()
 
         with self.assertRaises(ValueError):
@@ -49,7 +48,6 @@ class TestBoard(TestCase):
 
     def test_move_offgrid(self):
         """Make sure we can't make a move that's off the board."""
-
         board = Board()
 
         with self.assertRaises(IndexError):
@@ -63,7 +61,6 @@ class TestBoard(TestCase):
 
     def test_move_to_taken_space(self):
         """Make sure we can't move into a space that's already taken."""
-
         board = Board()
         board.xmove(0,0)
         board.omove(1,1)
@@ -73,7 +70,6 @@ class TestBoard(TestCase):
 
     def test_wrong_turn(self):
         """Make sure we can't move on the wrong turn."""
-
         board = Board()
         with self.assertRaises(WrongTurnError):
             board.omove(0,0)
@@ -82,10 +78,8 @@ class TestBoard(TestCase):
         with self.assertRaises(WrongTurnError):
             board.xmove(1,1)
 
-    def test_x_win(self):
-        """Check cases where X wins."""
-
-        # Vertical
+    def test_x_win_vertical(self):
+        """Check win detection for X in vertical pattern."""
         board = Board()
         self.assertEqual(board.winner(), 0)
         board.xmove(0,0)
@@ -99,7 +93,8 @@ class TestBoard(TestCase):
         board.xmove(0,2)
         self.assertEqual(board.winner(), 1)
 
-        # Horizontal
+    def test_x_win_horizontal(self):
+        """Check win detection for X in horizontal pattern."""
         board = Board()
         self.assertEqual(board.winner(), 0)
         board.xmove(0,0)
@@ -113,7 +108,8 @@ class TestBoard(TestCase):
         board.xmove(2,0)
         self.assertEqual(board.winner(), 1)
 
-        # Diagonal 1
+    def test_x_win_diag1(self):
+        """Check win detection for X in first diagonal pattern."""
         board = Board()
         self.assertEqual(board.winner(), 0)
         board.xmove(0,0)
@@ -127,7 +123,8 @@ class TestBoard(TestCase):
         board.xmove(2,2)
         self.assertEqual(board.winner(), 1)
 
-        # Diagonal 2
+    def test_x_win_diag2(self):
+        """Check win detection for X in second diagonal pattern."""
         board = Board()
         self.assertEqual(board.winner(), 0)
         board.xmove(0,2)
@@ -141,10 +138,8 @@ class TestBoard(TestCase):
         board.xmove(2,0)
         self.assertEqual(board.winner(), 1)
 
-    def test_o_win(self):
-        """Check cases where O wins."""
-
-        # Vertical
+    def test_o_win_vertical(self):
+        """Check win detection for O in vertical pattern."""
         board = Board()
         self.assertEqual(board.winner(), 0)
         board.xmove(1,0)
@@ -160,7 +155,8 @@ class TestBoard(TestCase):
         board.omove(0,2)
         self.assertEqual(board.winner(), -1)
 
-        # Horizontal
+    def test_o_win_horizontal(self):
+        """Check win detection for O in horizontal pattern."""
         board = Board()
         self.assertEqual(board.winner(), 0)
         board.xmove(1,1)
@@ -176,7 +172,8 @@ class TestBoard(TestCase):
         board.omove(2,0)
         self.assertEqual(board.winner(), -1)
 
-        # Diagonal 1
+    def test_o_win_diag1(self):
+        """Check win detection for O in first diagonal pattern."""
         board = Board()
         self.assertEqual(board.winner(), 0)
         board.xmove(1,0)
@@ -192,7 +189,8 @@ class TestBoard(TestCase):
         board.omove(2,2)
         self.assertEqual(board.winner(), -1)
 
-        # Diagonal 2
+    def test_o_win_diag2(self):
+        """Check win detection for O in second diagonal pattern."""
         board = Board()
         self.assertEqual(board.winner(), 0)
         board.xmove(1,2)
@@ -210,7 +208,6 @@ class TestBoard(TestCase):
 
     def test_move_after_win(self):
         """Check an error is raised when we try to play a game that's over."""
-
         board = Board()
         board.xmove(0,0)
         board.omove(1,0)

@@ -335,3 +335,23 @@ class TestWopr(TestCase):
         move = wopr._take_defense(board)
         self.assertEqual(move, (0,2))
 
+    def test_take_any(self):
+        """Take any space available."""
+        board = Board()
+        move = wopr._take_any(board)
+        self.assertIsNotNone(move)
+
+    def test_take_any_unavailable(self):
+        """No spaces available."""
+        board = Board()
+        board.xmove(0,0)
+        board.omove(1,1)
+        board.xmove(2,2)
+        board.omove(0,1)
+        board.xmove(2,1)
+        board.omove(2,0)
+        board.xmove(0,2)
+        board.omove(1,2)
+        board.xmove(1,0)
+        move = wopr._take_any(board)
+        self.assertIsNone(move)

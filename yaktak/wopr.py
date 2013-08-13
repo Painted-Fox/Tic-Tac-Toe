@@ -154,3 +154,19 @@ def _take_defense(board):
                     return (i,j)
 
     return None
+
+def _take_any(board):
+    """
+    Take any free space at random.
+    """
+
+    available = []
+    for i in range(0,3):
+        for j in range(0,3):
+            if board.empty(i,j):
+                available.append((i,j))
+
+    if len(available) == 0:
+        return None
+
+    return available[random.randint(0, len(available) - 1)]

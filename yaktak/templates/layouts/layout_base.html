@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>
+      {% block title %}{{ page_title|default('Yak Tak') }}{% endblock %}
+  </title>
+  <meta name="description"
+    content="Wouldn't you like to play a nice game of Yak Tak?">
+  <meta name="author"
+    content="Ryan Seto">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <link rel="Shortcut Icon" type="image/x-icon"
+    href="{{ url_for('static', filename='favicon.png') }}">
+
+  {% block css %}
+  <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/normalize.css') }}">
+  <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/bootstrap.css') }}">
+  <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/main.css') }}">
+  {% endblock %}
+
+  {% block css_style %}
+  {% endblock %}
+
+  {% block js_top %}
+  <!--[if lt IE 9]>
+  <script src="{{ url_for('static', filename='js/vendor/html5shiv.js') }}">
+  </script>
+  <![endif]-->
+  {% endblock %}
+</head>
+<body>
+  {% block container %}
+  {% endblock %}
+
+  {% block js_btm %}
+  {% set jquery_path = url_for('static', filename='js/vendor/jquery-2.0.3.js') %}
+  <script>window.jQuery || document.write('<script src="{{ jquery_path }}"><\/script>')</script>
+
+  <script
+    src="{{ url_for('static', filename='js/vendor/jquery-2.0.3.js') }}">
+  </script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% endblock %}
+</body>
+</html>

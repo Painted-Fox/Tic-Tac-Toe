@@ -5,7 +5,7 @@ RUNTEST = $(PYTHON) -m $(TESTRUNNER)
 all: run
 
 run::
-	$(PYTHON) run.py
+	$(PYTHON) yaktak/app.py
 
 test::
 	$(RUNTEST) yaktak.tests.test_suite

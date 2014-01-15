@@ -1,9 +1,26 @@
 #board {
-    width: 5em;
-    height: 5em;
+  width: 5em;
+  height: 5em;
 }
 
 #board button {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
+  font-size: 24pt;
+}
+
+#board button.x {
+  color: red;
+}
+
+#board button.x:after {
+  content: 'x';
+}
+
+#board button.o {
+  color: blue;
+}
+
+#board button.o:after {
+  content: 'o';
 }

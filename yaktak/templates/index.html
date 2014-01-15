@@ -1,12 +1,31 @@
 {% set page_title = 'Yak Tak' %}
 {% extends 'layouts/layout_base.html' %}
 {% block container %}
-<div class="hero-unit">
-  <h1>Yak Tak</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1>Yak Tak</h1>
 
-  <p>
-    Board goes here.
-  </p>
+    <table id="board">
+      <tbody>
+      <tr>
+        <td><button>X</button></td>
+        <td><button>O</button></td>
+        <td><button>X</button></td>
+      </tr>
 
+      <tr>
+        <td><button></button></td>
+        <td><button></button></td>
+        <td><button></button></td>
+      </tr>
+
+      <tr>
+        <td><button></button></td>
+        <td><button></button></td>
+        <td><button></button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

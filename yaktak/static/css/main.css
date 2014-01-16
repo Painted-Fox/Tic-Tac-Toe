@@ -24,3 +24,11 @@
 #board button.o:after {
   content: 'o';
 }
+
+#controls {
+  margin-top: 1.5em;
+}
+
+#skip {
+  margin-left: 20px;
+}

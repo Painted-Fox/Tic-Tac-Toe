@@ -44,6 +44,14 @@ $(document).ready(function() {
                 }
             }
         },
+        // Resets the board.
+        reset = function() {
+            setGrid([[0,0,0],[0,0,0],[0,0,0]]);
+        },
+        // Allows the player to skip a turn.
+        skip = function() {
+            aiMove();
+        },
         // Request a move from the AI.
         aiMove = function() {
             // Handle the response from the AI.
@@ -65,6 +73,8 @@ $(document).ready(function() {
         };
 
     $('#board button').click(buttonClickHandler);
+    $('#reset').click(reset);
+    $('#skip').click(skip);
 
-    setGrid([[0,0,0],[0,0,0],[0,0,0]]);
+    reset();
 })

@@ -11,8 +11,10 @@ def index():
 @app.route('/wopr/move', methods = ['POST'])
 def move():
     grid = request.get_json()
+    print grid
     board = Board(grid)
-    move = wopr._take_free_corner(board)
+    move = wopr.move(board)
     board.move(move[0], move[1], board.turn())
+    print board.grid
 
     return jsonify({ "move" : move, "grid" : board.grid })

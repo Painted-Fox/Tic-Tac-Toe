@@ -5,7 +5,7 @@ from copy import deepcopy
 from yaktak.board import Board
 
 def move(board):
-    if isinstance(board, Board) == false:
+    if isinstance(board, Board) == False:
         raise TypeError("The board provided is not a recognized type.")
 
     move = (_take_win(board) or
@@ -16,10 +16,7 @@ def move(board):
             _take_center(board) or
             _take_any(board))
 
-    if board.turn() == 1:
-        xmove(*move)
-    else:
-        omove(*move)
+    return move
 
 def _take_free_corner(board):
     """

@@ -113,7 +113,10 @@ $(document).ready(function() {
         },
         // Handle button mashing, I mean clicking.
         buttonClickHandler = function() {
-            if (winner === 0) {
+            if (winner === 0 &&
+                !$(this).hasClass('x') &&
+                !$(this).hasClass('o'))
+            {
                 if (turn() > 0) {
                     $(this).addClass('x');
                 } else {

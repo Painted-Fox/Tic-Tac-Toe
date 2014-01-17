@@ -1,10 +1,11 @@
+/* global $ */
 $(document).ready(function() {
     var winner = 0,
         boardFields = [
             [$('#field-20'), $('#field-21'), $('#field-22')],
             [$('#field-10'), $('#field-11'), $('#field-12')],
             [$('#field-00'), $('#field-01'), $('#field-02')]
-        ], x, y,
+        ],
         // Gets the grid into array format from the DOM elements.
         getGrid = function() {
             var grid = [[],[],[]],
@@ -29,7 +30,7 @@ $(document).ready(function() {
                 grid[0].length != 3 ||
                 grid[1].length != 3 ||
                 grid[2].length != 3) {
-                    throw "Invalid grid."
+                    throw "Invalid grid.";
             }
 
             for (y = 0; y < 3; y++) {
@@ -50,13 +51,13 @@ $(document).ready(function() {
             var grid = getGrid(), moves = 0, x, y;
             for (y = 0; y < 3; y++) {
                 for (x = 0; x < 3; x++) {
-                    if (grid[y][x] != 0) {
+                    if (grid[y][x] !== 0) {
                         moves++;
                     }
                 }
             }
 
-            if (moves % 2 == 0) {
+            if (moves % 2 === 0) {
                 return 1;
             } else {
                 return -1;
@@ -88,7 +89,7 @@ $(document).ready(function() {
             var success = function(data) {
                 winner = data.winner;
                 setGrid(data.grid);
-                if (winner != 0) {
+                if (winner !== 0) {
                     if (winner > 0) {
                         $('#msg').text("Player X wins!");
                     } else {
@@ -99,7 +100,7 @@ $(document).ready(function() {
             // Make sure we re-enable the UI.
             var complete = function() {
                 enableUI();
-            }
+            };
             $.ajax({
                 url: '/wopr/move',
                 type: 'POST',
@@ -112,7 +113,7 @@ $(document).ready(function() {
         },
         // Handle button mashing, I mean clicking.
         buttonClickHandler = function() {
-            if (winner == 0) {
+            if (winner === 0) {
                 if (turn() > 0) {
                     $(this).addClass('x');
                 } else {
@@ -127,4 +128,4 @@ $(document).ready(function() {
     $('#skip').click(skip);
 
     reset();
-})
+});

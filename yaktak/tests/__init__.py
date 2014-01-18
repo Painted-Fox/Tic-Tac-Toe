@@ -1,6 +1,12 @@
+"""
+Unit tests for yaktak.
+"""
+
 import unittest
 
 def test_suite():
+    """Unit test suite."""
+
     result = unittest.TestSuite()
     names = [
         'wopr',

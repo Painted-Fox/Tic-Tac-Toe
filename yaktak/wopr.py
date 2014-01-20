@@ -18,6 +18,7 @@ def move(board):
             _take_defense(board) or
             _take_double_threat(board) or
             _take_opposite_corner(board) or
+            _defend_double_threat(board) or
             _take_free_corner(board) or
             _take_center(board) or
             _take_any(board))
@@ -173,3 +174,75 @@ def _take_any(board):
         return None
 
     return available[random.randint(0, len(available) - 1)]
+
+def _defend_double_threat(board):
+    """
+    Prevent a double threat scenario.
+    TODO: Find a cleaner way to do this.
+    """
+
+    myturn = board.turn()
+    opponent = -(myturn)
+    threat = False
+
+    # Double threat coming from corners
+    if (board.grid[0][0] == opponent and
+        board.grid[2][2] == opponent and
+        board.grid[2][0] == 0 and
+        board.grid[0][2] == 0) or (
+        board.grid[2][0] == opponent and
+        board.grid[0][2] == opponent and
+        board.grid[0][0] == 0 and
+        board.grid[2][2] == 0):
+
+        threat = True
+
+    # Double threat coming from a corner and a side
+    elif (board.grid[0][0] == opponent and (
+            board.grid[1][2] == opponent or
+            board.grid[2][1] == opponent)) or (
+        board.grid[2][0] == opponent and (
+            board.grid[0][1] == opponent or
+            board.grid[1][2] == opponent)) or (
+        board.grid[2][2] == opponent and (
+            board.grid[1][0] == opponent or
+            board.grid[0][1] == opponent)) or (
+        board.grid[0][2] == opponent and (
+            board.grid[1][0] == opponent or
+            board.grid[2][1] == opponent)):
+
+        threat = True
+
+
+    if threat:
+        if board.grid[1][0] == 0 and board.grid[1][2] == 0:
+            return (1, 0)
+
+        if board.grid[2][1] == 0 and board.grid[0][1] == 0:
+            return (0, 1)
+
+
+    # Double threat coming from two sides
+    if (board.grid[1][0] == opponent and board.grid[0][1] and
+            board.grid[0][0] == 0 and
+            board.grid[2][0] == 0 and
+            board.grid[0][2] == 0):
+        return (0, 0)
+    elif (board.grid[1][0] == opponent and board.grid[2][1] and
+            board.grid[0][0] == 0 and
+            board.grid[2][0] == 0 and
+            board.grid[2][2] == 0):
+        return (2, 0)
+    elif (board.grid[1][2] == opponent and board.grid[2][1] and
+            board.grid[2][0] == 0 and
+            board.grid[0][2] == 0 and
+            board.grid[2][2] == 0):
+        return (2, 2)
+    elif (board.grid[1][2] == opponent and board.grid[0][1] and
+            board.grid[0][0] == 0 and
+            board.grid[0][2] == 0 and
+            board.grid[2][2] == 0):
+        return (0, 2)
+
+
+    return None

@@ -51,5 +51,13 @@ class ExhaustivePlayer(TestCase):
         """Determine if we can win by playing X."""
 
         result = self.exhaust(1, Board())
+        self.assertIsNone(result)
 
+    def test_exhaust_o(self):
+        """Determine if we can win by playing O."""
+
+        board = Board()
+        wopr_move = wopr.move(board)
+        board.move(wopr_move[0], wopr_move[1], board.turn())
+        result = self.exhaust(1, Board())
         self.assertIsNone(result)

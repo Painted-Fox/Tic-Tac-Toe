@@ -223,3 +223,57 @@ class TestBoard(TestCase):
 
         with self.assertRaises(GameOverError):
             board.omove(1, 2)
+
+    def test_draw_empty(self):
+        """Check if draw is false when there are empty spaces."""
+        board = Board()
+        self.assertFalse(board.draw())
+        board.xmove(0, 0)
+        self.assertFalse(board.draw())
+        board.omove(1, 1)
+        self.assertFalse(board.draw())
+
+    def test_draw_winner(self):
+        """Ensure draw is false when there is a winner."""
+
+        board = Board()
+        board.xmove(0, 2)
+        board.omove(0, 0)
+        board.xmove(1, 1)
+        board.omove(2, 1)
+        board.xmove(1, 0)
+        board.omove(2, 2)
+        board.xmove(0, 1)
+        board.omove(1, 2)
+        board.xmove(2, 0)
+        self.assertFalse(board.draw())
+
+    def test_draw(self):
+        """
+        Ensure draw returns false if all spaces are filled and there is no
+        winner.
+        """
+
+        board = Board()
+        board.xmove(0, 2)
+        board.omove(0, 0)
+        board.xmove(1, 1)
+        board.omove(2, 0)
+        board.xmove(2, 1)
+        board.omove(0, 1)
+        board.xmove(1, 0)
+        board.omove(1, 2)
+        board.xmove(2, 2)
+        self.assertTrue(board.draw())
+
+        board = Board()
+        board.xmove(2, 0)
+        board.omove(1, 1)
+        board.xmove(0, 0)
+        board.omove(1, 0)
+        board.xmove(1, 2)
+        board.omove(2, 2)
+        board.xmove(2, 1)
+        board.omove(0, 2)
+        board.xmove(0, 1)
+        self.assertTrue(board.draw())

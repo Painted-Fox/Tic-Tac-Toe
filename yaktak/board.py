@@ -123,6 +123,19 @@ class Board:
         # No winner
         return 0
 
+    def draw(self):
+        """Returns true if we have a draw."""
+
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if self.get(i, j) == 0:
+                    return False
+
+        if self.winner() == 0:
+            return True
+        else:
+            return False
+
     def __repr__(self):
         """Represent the board as a string."""
 

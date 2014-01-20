@@ -11,6 +11,7 @@ def test_suite():
     names = [
         'wopr',
         'board',
+        'exhaustive'
         ]
     module_names = ['yaktak.tests.test_' + name for name in names]
     loader = unittest.TestLoader()

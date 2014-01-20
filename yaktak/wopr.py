@@ -10,6 +10,10 @@ def move(board):
     if isinstance(board, Board) == False:
         raise TypeError("The board provided is not a recognized type.")
 
+    # If we are O, always take center if we can.
+    if board.turn() == -1 and board.grid[1][1] == 0:
+        return (1, 1)
+
     wopr_move = (_take_win(board) or
             _take_defense(board) or
             _take_double_threat(board) or

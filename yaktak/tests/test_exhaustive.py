@@ -19,8 +19,6 @@ class ExhaustivePlayer(TestCase):
             # The WOPR has won or successfully created a draw.
             return None
 
-        print board
-
         for i in range(0, 3):
             for j in range(0, 3):
                 # Skip taken fields.
@@ -31,8 +29,6 @@ class ExhaustivePlayer(TestCase):
                 b = Board(grid=deepcopy(board.grid))
                 # Make our move
                 b.move(i, j, player)
-
-                print b
 
                 # Did we win?
                 if player == b.winner():

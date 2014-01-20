@@ -128,7 +128,7 @@ class Board:
 
         for i in range(0, 3):
             for j in range(0, 3):
-                if self.get(i, j) == 0:
+                if self.grid[i][j] == 0:
                     return False
 
         if self.winner() == 0:
